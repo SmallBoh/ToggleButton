@@ -25,6 +25,6 @@ public class MainActivity extends Activity implements OnToggleStateChangeListene
 
 	@Override
 	public void onToggleState(boolean currentState) {
-		Toast.makeText(getApplicationContext(), currentState ? "¿ªÆô":"¹Ø±Õ", 0).show();
+		Toast.makeText(getApplicationContext(), currentState ? "å¼€å¯":"å…³é—­", 0).show();
 	}
 }

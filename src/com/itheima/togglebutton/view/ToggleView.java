@@ -20,7 +20,7 @@ public class ToggleView extends View {
 	private Rect rectOff, rectON;
 	private Matrix matrix;
 	private Paint paint;
-	private boolean toggleState = false;// ¿ª¹Ø×´Ì¬
+	private boolean toggleState = false;// å¼€å…³çŠ¶æ€
 
 	public ToggleView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -29,29 +29,29 @@ public class ToggleView extends View {
 	}
 
 	/**
-	 * ÉèÖÃ¿ª¹ØµÄ×ÊÔ´Í¼Æ¬
+	 * è®¾ç½®å¼€å…³çš„èµ„æºå›¾ç‰‡
 	 * 
 	 * @param backgroundResID
-	 *            ±³¾°Í¼Æ¬
+	 *            èƒŒæ™¯å›¾ç‰‡
 	 * @param slideResID
-	 *            »¬¶¯°´Å¥µÄÍ¼Æ¬
+	 *            æ»‘åŠ¨æŒ‰é’®çš„å›¾ç‰‡
 	 */
 	public void setImagesResID(int backgroundResID, int slideResID) {
 		backgroundBitmap = BitmapFactory.decodeResource(getResources(),
 				backgroundResID);
 		slideButtonBitmap = BitmapFactory.decodeResource(getResources(),
 				slideResID);
-		// ¿ª¹Ø¹Ø±Õ×´Ì¬µÄ¾ØĞÎ
+		// å¼€å…³å…³é—­çŠ¶æ€çš„çŸ©å½¢
 		rectOff = new Rect(0, 0, slideButtonBitmap.getWidth(),
 				backgroundBitmap.getHeight());
-		// ¿ª¹Ø¿ªÆô×´Ì¬µÄ¾ØĞÎ
+		// å¼€å…³å¼€å¯çŠ¶æ€çš„çŸ©å½¢
 		rectON = new Rect(backgroundBitmap.getWidth()
 				- slideButtonBitmap.getWidth(), 0, backgroundBitmap.getWidth(),
 				backgroundBitmap.getHeight());
 	}
 
 	/**
-	 * ²âÁ¿Àïµ÷ÓÃ,³õÊ¼»¯¿Ø¼şµÄ¿í¸ß
+	 * æµ‹é‡é‡Œè°ƒç”¨,åˆå§‹åŒ–æ§ä»¶çš„å®½é«˜
 	 */
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -62,23 +62,24 @@ public class ToggleView extends View {
 	}
 
 	/**
-	 * »æÖÆ¿Ø¼şÀïµ÷ÓÃ,ÊÖ¶¯µ÷ÓÃ invailidate()·½·¨Ê±,Ò²ÄÜµ÷ÓÃ onDraw
+	 * ç»˜åˆ¶æ§ä»¶é‡Œè°ƒç”¨,æ‰‹åŠ¨è°ƒç”¨ invailidate()æ–¹æ³•æ—¶,ä¹Ÿèƒ½è°ƒç”¨ onDraw
 	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// »æÖÆ±³¾°Í¼Æ¬
+		// ç»˜åˆ¶èƒŒæ™¯å›¾ç‰‡
 		canvas.drawBitmap(backgroundBitmap, matrix, paint);
-		if (isSliding) {// »¬¶¯Ê±
+		if (isSliding) {// æ»‘åŠ¨æ—¶
+			//è®¡ç®—å‡ºxè½´åç§»é‡çš„å çš„å€¼,åœ¨æ»‘åŠ¨ç‚¹ä¸­é—´çš„ä½ç½®
 			int left = currentX - slideButtonBitmap.getWidth() / 2;
-			// ±ß½ç
+			// è¾¹ç•Œ
 			if (left < rectOff.left) {
 				left = 0;
 			} else if (left > rectON.left) {
 				left = rectON.left;
 			}
 			canvas.drawBitmap(slideButtonBitmap, left, 0, paint);
-		} else {// µã»÷Ê±
-			// »æÖÆ»¬¶¯Í¼Æ¬
+		} else {// ç‚¹å‡»æ—¶
+			// ç»˜åˆ¶æ»‘åŠ¨å›¾ç‰‡
 			if (toggleState) {
 				canvas.drawBitmap(slideButtonBitmap, rectON.left, rectON.top,
 						paint);
@@ -104,20 +105,20 @@ public class ToggleView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:// °´ÏÂ
+		case MotionEvent.ACTION_DOWN:// æŒ‰ä¸‹
 			isSliding = true;
 			currentX = (int) event.getX();
 			break;
-		case MotionEvent.ACTION_MOVE:// ÒÆ¶¯
+		case MotionEvent.ACTION_MOVE:// ç§»åŠ¨
 			currentX = (int) event.getX();
 			break;
-		case MotionEvent.ACTION_UP:// Ì§Æğ
+		case MotionEvent.ACTION_UP:// æŠ¬èµ·
 			isSliding = false;
 			currentX = (int) event.getX();
-			// ÔÚ»¬¶¯µ½Ä³Ò»±ßÊ±,
+			// åœ¨æ»‘åŠ¨åˆ°æŸä¸€è¾¹æ—¶,
 			boolean state = currentX > backgroundBitmap.getWidth() / 2;//
 			if (this.listener != null) {
-				if(state != toggleState){//Èç¹û×´Ì¬Ã»ÓĞ¸Ä±ä
+				if(state != toggleState){//å¦‚æœçŠ¶æ€æ²¡æœ‰æ”¹å˜
 					this.listener.onToggleState(state);
 				}
 			}

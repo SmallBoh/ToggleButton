@@ -1,15 +1,15 @@
 package com.itheima.togglebutton.view.interf;
 
 /**
- * µ±¿ª¹Ø¸Ä±äÊ±µÄ¼àÌıÊÂ¼ş
+ * å½“å¼€å…³æ”¹å˜æ—¶çš„ç›‘å¬äº‹ä»¶
  * 
  * @author lenovo
  * 
  */
 public interface OnToggleStateChangeListener {
 	/**
-	 * µ±¿ª¹Ø×´Ì¬¸Ä±äÊ±µÄ·½·¨
-	 * @param currentState ¸Ä±äºóµÄÖµ
+	 * å½“å¼€å…³çŠ¶æ€æ”¹å˜æ—¶çš„æ–¹æ³•
+	 * @param currentState æ”¹å˜åçš„å€¼
 	 */
 	void onToggleState(boolean currentState);
 }
